@@ -5,7 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tic-Tac-Toe</title>
     <link rel="stylesheet" href="style.css" />
-    <script type="module" src="controller.js" defer></script>
+    <script type="module" src="display-controller.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <div class="display-container">
+      <div class="grid-container"></div>
+    <div class="form-container">
+      <form class="player1-form">
+        <h2>Player 1</h2>
+        <label for="pName">Your name:</label><br>
+        <input type="text" id="pName" name="pName"><br>
+        <label for="marker-select">Choose a marker</label>
+        <select id="marker-select" name="marker=select">
+          <option value="X">X</option>
+          <option value="O">O</option>
+        </select>
+      </form>
+    <form class="player2-form">
+      <h2>Player 2</h2>
+        <label for="pName">Your name:</label><br>
+        <input type="text" id="pName" name="pName"><br>
+        <label for="marker-select">Choose a marker</label>
+        <select id="marker-select" name="marker=select">
+          <option value="X">X</option>
+          <option value="O">O</option>
+        </select>
+      </form>
+    <button class="startGame-button">Start</button></div>
+
+    <div class="gameOver-screen">
+      <h1>Game Over</h1>
+      <button class="restart">Play Again?</button>
+    </div>
+    </div>
+    </div>
+  </body>
 </html>

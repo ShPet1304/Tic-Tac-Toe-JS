@@ -1,10 +1,12 @@
 import { createPlayer } from "./player.js";
 import { board } from "./gameboard.js";
+import { gridCreator, endGame } from "./display-controller.js";
 
 //player objects
 const players = [createPlayer("Player 1", "X"), createPlayer("Player 2", "O")];
 
-let activePlayer;
+export let activePlayer;
+export let gameRunning = true;
 
 function starterPlayer() {
   players.forEach((player) => {
@@ -31,17 +33,26 @@ function turnDictator() {
       break;
 
     case "tie":
-      board.reset();
+      setTimeout(() => {
+        gridCreator();
+        board.reset();
+        gameRunning = true;
+      }, 200);
       console.log("It's a tie - Game Over");
       break;
 
     case "winner":
-      board.reset();
+      endGame();
+      setTimeout(() => {
+        gridCreator();
+        board.reset();
+        gameRunning = true;
+      }, 200);
       console.log("Game Over");
       break;
 
     default:
-      playerSwitcher();
+      return;
       break;
   }
 }
@@ -67,24 +78,31 @@ function winnerChecker() {
       activePlayer.getMarker() == currentBoard[winner.second] &&
       activePlayer.getMarker() == currentBoard[winner.third]
     ) {
+      gameRunning = false;
       return "winner";
     }
   }
 
   if (currentBoard.every((val) => val !== "")) {
+    gameRunning = false;
     return "tie";
   }
-  return "changeTurn";
+  if (gameRunning === true) {
+    return "changeTurn";
+  } else {
+    return;
+  }
 }
 
 //marker placer
-function placeMarker(position) {
+export function placeMarker(position) {
   const currentBoard = board.getter();
-  if (currentBoard[position] == "") {
+  if (currentBoard[position] == "" && gameRunning === true) {
     board.place(position, activePlayer.getMarker());
     turnDictator();
   } else {
     console.log("try another spot");
   }
 }
+
 starterPlayer();
